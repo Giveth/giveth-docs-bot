@@ -24,18 +24,17 @@ bot = interactions.Client(os.getenv('DISCORD_TOKEN'))
             ),
     ])
 async def ask(ctx: interactions.CommandContext, question: str):
-    # user input
-    user_question = question
-    if user_question:
+    if question:
         await ctx.defer()
-        docs = knowledge_base.similarity_search(user_question)
+        docs = knowledge_base.similarity_search(question)
 
         llm = OpenAI()
         chain = load_qa_chain(llm, chain_type="stuff")
         with get_openai_callback() as cb:
-            response = chain.run(input_documents=docs, question=user_question)
+            response = chain.run(input_documents=docs, question=question)
             print(cb)
 
+        response = f"**Question:** {question}\n\n**Answer:** {response}"
         await ctx.send(content=response)
 
 if __name__ == '__main__':
