@@ -1,1 +1,5 @@
 .env
+giveth-docs
+
+.hypothesis
+__pycache__
