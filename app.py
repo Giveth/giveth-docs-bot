@@ -1,10 +1,10 @@
 import interactions
 from dotenv import load_dotenv
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.callbacks import get_openai_callback
 from langchain.agents import Tool, initialize_agent
-from langchain.chains import LLMMathChain, LLMChain, ConversationalRetrievalChain, RetrievalQA
+from langchain.chains import LLMMathChain, LLMChain, RetrievalQA
 from langchain.prompts import PromptTemplate
 import os
 
@@ -41,7 +41,7 @@ async def ask(ctx: interactions.CommandContext, question: str):
         await ctx.defer()
         docs = knowledge_base.similarity_search(question)
 
-        llm = OpenAI()
+        llm = ChatOpenAI()
         chain = load_qa_chain(llm, chain_type="stuff")
         with get_openai_callback() as cb:
             response = chain.run(input_documents=docs, question=question)
@@ -65,7 +65,7 @@ async def experimental_agent(ctx: interactions.CommandContext, question: str):
     if question:
         await ctx.defer()
 
-        llm = OpenAI(
+        llm = ChatOpenAI(
             model_name="gpt-4"
         )
         llm_math = LLMMathChain(llm=llm)
