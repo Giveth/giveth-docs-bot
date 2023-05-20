@@ -20,6 +20,7 @@ The bot is intended for use within a Discord server. Here is how you can utilize
 
 - `/reload` - This command reloads the knowledge base from the Giveth's documentation.
 - `/ask <your question here>` - This command fetches the answer to your question from the knowledge base. Replace `<your question here>` with your actual question about Giveth.
+- `/experimental_agent <your question here> - This command fetches the answer to your question using the experimental agent. Replace `<your question here>` with your actual question about Giveth.
 
 ## Setting up Discord Bot Token and OpenAI API Key
 
